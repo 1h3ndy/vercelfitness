@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Weight Log</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script defer src="{{ url_for('static', filename='js/weight_log.js') }}"></script>
+</head>
+
+<body>
+    <header>
+        <h1>Weight Log</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('weight_log') }}">Weight Tracker</a></li>
+                <li><a href="{{ url_for('createworkout') }}">Create Workout</a></li>
+                <li><a href="{{ url_for('myworkouts') }}">My Workouts</a></li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>YTP Weight Tracker</h2>
+        <form id="weightForm">
+            <label for="weight">Enter Weight (kg):</label>
+            <input type="number" id="weight" name="weight">
+            <button type="submit">Log Weight</button>
+        </form>
+
+        <canvas id="weightChart"></canvas> <!-- chart --->
+    </main>
+</body>
+
+</html>

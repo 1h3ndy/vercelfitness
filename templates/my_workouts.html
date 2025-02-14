@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>My Workouts</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <header>
+        <h1>OpenFitnessApp</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+
+                {% if 'username' in session %}
+                <li><a href="{{ url_for('createworkout') }}">Create Workout</a></li>
+                <li><a href="{{ url_for('weight_log') }}">Weight Tracker</a></li>
+                <li><a href="{{ url_for('myworkouts') }}">My Workouts</a></li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                {% else %}
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+                <li><a href="{{ url_for('signup') }}">Sign Up</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>Your Workouts</h2>
+        <ul id="workoutList"></ul> <! links to the js list code-->
+    </main>
+
+<script>
+    async function fetchWorkouts() {
+        const response = await fetch('/api/get-workouts');
+        if (response.ok) {
+            const responsedata = await response.json();
+            const workoutList = document.getElementById('workoutList');
+
+
+            const group = {};
+            responsedata.workouts.forEach((item) => {
+                const id = item.workout_id;
+
+                group[id] = {
+                    date: item.date,
+
+                    exercises: []
+                };
+
+                group[id].exercises.push({
+                    name: item.exercise,
+                    sets: item.sets,
+                    reps: item.reps,
+                    weight: item.weight
+                });
+            });
+
+
+            for (const id in group) {
+                const li = document.createElement('li');
+                li.classList.add('workoutindividual');
+                const a = document.createElement('a');
+                a.href = `/workout/${id}`;
+                a.textContent = group[id].date;
+                li.appendChild(a);
+                workoutList.appendChild(li);
+            }
+
+        }
+    }
+
+    fetchWorkouts();
+</script>
+
+
+</body>
+
+</html>

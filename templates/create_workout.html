@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Create Workout</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <header>
+        <h1>Create Workout</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('myworkouts') }}">My Workouts</a></li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <form action="{{ url_for('create_workout_submit') }}" method="POST">
+            <div id="exerciseContainer">
+                <div class="exercise">
+                    <label>Exercise Name:</label>
+                    <select name="name[]" required>
+                        <option value="Bench Press">Bench Press</option>
+                        <option value="Chest Press">Chest Press</option>
+                        <option value="Lateral Raise">Lateral Raise</option>
+                        <option value="Shoulder Press">Shoulder Press</option>
+                        <option value="Squat">Squat</option>
+                        <option value="Deadlift">Deadlift</option>
+                        <option value="Bicep Curl">Bicep Curl</option>
+                        <option value="Shoulder Press">Shoulder Press</option>
+                        <option value="PullUp">PullUp</option>
+                        <option value="Lateral Pulldowns">Lat Pull Downs</option>
+                        <option value="Row">Row</option>
+                        <option value="Tricep Extension">Tricep Extension</option>
+                        <option value="Face Pull">Face Pulls</option>
+                    </select>
+
+                    <label>Sets:</label>
+                    <input type="number" name="sets[]" min="1" max="30" required placeholder="Enter sets">
+
+                    <label>Reps:</label>
+                    <input type="number" name="reps[]" min="1" max="50" required placeholder="Enter reps">
+
+                    <label>Weight (kg):</label>
+                    <input type="number" name="weight[]" min="0" max="300" required placeholder="Enter weight">
+                </div>
+            </div>
+            <button type="button" onclick="addset()">Add Another Exercise</button>
+            <button type="submit">Submit Workout</button>
+        </form>
+    </main>
+
+    <script>
+        function addset() {
+            const container = document.getElementById('exerciseContainer');
+            const exerciseDiv = document.createElement('div');
+            exerciseDiv.className = 'exercise';
+
+            exerciseDiv.innerHTML = `
+                <label>Exercise Name:</label>
+                <select name="name[]" required> -- for creating new sets ina workout
+                        <option value="Bench Press">Bench Press</option>
+                        <option value="Chest Press">Chest Press</option>
+                        <option value="Lateral Raise">Lateral Raise</option>
+                        <option value="Shoulder Press">Shoulder Press</option>
+                        <option value="Squat">Squat</option>
+                        <option value="Deadlift">Deadlift</option>
+                        <option value="Bicep Curl">Bicep Curl</option>
+                        <option value="Shoulder Press">Shoulder Press</option>
+                        <option value="PullUp">PullUp</option>
+                        <option value="Lateral Pulldowns">Lat Pull Downs</option>
+                        <option value="Row">Row</option>
+                        <option value="Tricep Extension">Tricep Extension</option>
+                        <option value="Face Pull">Face Pulls</option>
+                </select>
+
+                <label>Sets:</label>
+                <input type="number" name="sets[]" min="1" max="20" required placeholder="Enter sets">
+
+                <label>Reps:</label>
+                <input type="number" name="reps[]" min="1" max="29" required placeholder="Enter reps">
+
+                <label>Weight (kg):</label>
+                <input type="number" name="weight[]" min="0" max="300" required placeholder="Enter weight (kg)">
+            `;
+
+            container.appendChild(exerciseDiv);
+        }
+    </script>
+</body>
+
+</html>
