@@ -1,0 +1,3 @@
+fix the token system, its really bad#
+
+need to make it so it has to refresh the token with the servefer every few minutes
